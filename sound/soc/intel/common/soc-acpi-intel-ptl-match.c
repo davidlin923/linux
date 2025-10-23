@@ -31,7 +31,20 @@ static const struct snd_soc_acpi_codecs ptl_lt6911_hdmi = {
 	.codecs = {"INTC10B0"}
 };
 
+/* The TAS2563/TAS2781 driver uses same driver for management */
+static const struct snd_soc_acpi_codecs ptl_tas2563_amps = {
+	.num_codecs = 1,
+	.codecs = {TAS2563_ACPI_HID}
+};
+
 struct snd_soc_acpi_mach snd_soc_acpi_intel_ptl_machines[] = {
+	{
+		.comp_ids = &ptl_rt5682_rt5682s_hp,
+		.drv_name = "ptl_tas2563_rt5682",
+		.machine_quirk = snd_soc_acpi_codec_list,
+		.quirk_data = &ptl_tas2563_amps,
+		.sof_tplg_filename = "sof-ptl-tas2563-rt5682.tplg",
+	},
 	{
 		.comp_ids = &ptl_rt5682_rt5682s_hp,
 		.drv_name = "ptl_rt5682_c1_h02",
