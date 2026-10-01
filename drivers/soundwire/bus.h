@@ -158,6 +158,8 @@ struct sdw_slave_runtime {
  * @direction: Data direction for Master
  * @ch_count: Number of channels handled by the Master for
  * this stream, can be zero.
+ * @bandwidth_backup: Snapshot of bus bandwidth saved before stream
+ * preparation, used to safely roll back accounting on failure.
  * @slave_rt_list: Slave runtime list
  * @port_list: List of Master Ports configured for this stream, can be zero.
  * @stream_node: sdw_stream_runtime master_list node
@@ -168,6 +170,7 @@ struct sdw_master_runtime {
 	struct sdw_stream_runtime *stream;
 	enum sdw_data_direction direction;
 	unsigned int ch_count;
+	unsigned int bandwidth_backup;
 	struct list_head slave_rt_list;
 	struct list_head port_list;
 	struct list_head stream_node;
